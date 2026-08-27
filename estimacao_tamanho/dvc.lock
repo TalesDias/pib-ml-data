@@ -28,3 +28,31 @@ stages:
       md5: 594c02d66807a7958b449056e3450927.dir
       size: 38510548
       nfiles: 430
+  check_card_labels:
+    cmd: python verify_cvat_pose_labels.py
+    deps:
+    - path: resized
+      hash: md5
+      md5: 594c02d66807a7958b449056e3450927.dir
+      size: 38510548
+      nfiles: 430
+    outs:
+    - path: card_pose_labels
+      hash: md5
+      md5: d751713988987e9331980363e24189ce.dir
+      size: 0
+      nfiles: 0
+  check_segmentation_labels:
+    cmd: python verify_sam_mask_labels.py
+    deps:
+    - path: resized
+      hash: md5
+      md5: 594c02d66807a7958b449056e3450927.dir
+      size: 38510548
+      nfiles: 430
+    outs:
+    - path: penis_segmentation_masks
+      hash: md5
+      md5: d751713988987e9331980363e24189ce.dir
+      size: 0
+      nfiles: 0
