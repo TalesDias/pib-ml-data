@@ -2,6 +2,7 @@ stages:
   transpose:
     cmd: python flatten.py
     deps:
+      - flatten.py
       - raw
     outs:
       - flattened
@@ -9,6 +10,7 @@ stages:
   resize:
     cmd: python resize.py
     deps:
+      - resize.py
       - flattened
     outs:
       - resized
@@ -16,6 +18,7 @@ stages:
   check_card_labels:
     cmd: python verify_cvat_pose_labels.py
     deps:
+      - verify_cvat_pose_labels.py
       - resized
     outs:
       - card_pose_labels
@@ -23,6 +26,7 @@ stages:
   check_segmentation_labels:
     cmd: python verify_sam_mask_labels.py
     deps:
+      - verify_sam_mask_labels.py
       - resized
     outs:
       - penis_segmentation_masks

@@ -37,7 +37,7 @@ def flatten_v1(src_dir: Path) -> None:
             print(f"V1: skipping unrecognized file name '{f.name}'")
             continue
         code, foto = match.group(1).upper(), match.group(2).lower()
-        suffix = "f1" if foto == "foto1" else "f2"
+        suffix = "_f1" if foto == "foto1" else "_f2"
         save_as_jpg(f, FLATTENED_DIR / f"V1_{code}{suffix}.jpg")
 
 

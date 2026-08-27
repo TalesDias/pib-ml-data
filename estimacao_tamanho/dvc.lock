@@ -3,31 +3,39 @@ stages:
   transpose:
     cmd: python flatten.py
     deps:
+    - path: flatten.py
+      hash: md5
+      md5: 27e7c7e02342f79b64ae3eef9cb9280a
+      size: 1688
     - path: raw
       hash: md5
-      md5: 97b3875b04a85954b265f7e827b5ad22.dir
-      size: 873173975
-      nfiles: 433
+      md5: 3c0d2ea00b987a3a859064b6fad7407a.dir
+      size: 867514925
+      nfiles: 431
     outs:
     - path: flattened
       hash: md5
-      md5: 0b57c5564b0cf420f31029d825c46c83.dir
-      size: 847372208
-      nfiles: 430
+      md5: 4a6101e05a230d9dbe8f128bf9e03cd1.dir
+      size: 841713158
+      nfiles: 428
   resize:
     cmd: python resize.py
     deps:
     - path: flattened
       hash: md5
-      md5: 0b57c5564b0cf420f31029d825c46c83.dir
-      size: 847372208
-      nfiles: 430
+      md5: 4a6101e05a230d9dbe8f128bf9e03cd1.dir
+      size: 841713158
+      nfiles: 428
+    - path: resize.py
+      hash: md5
+      md5: c1666a5fd54d0e1bf78ad9ecb7f2f7ba
+      size: 1728
     outs:
     - path: resized
       hash: md5
-      md5: 594c02d66807a7958b449056e3450927.dir
-      size: 38510548
-      nfiles: 430
+      md5: 9af59056923090672fa9ff4fe06ddcd0.dir
+      size: 38381832
+      nfiles: 428
   check_card_labels:
     cmd: python verify_cvat_pose_labels.py
     deps:
