@@ -1,9 +1,8 @@
 """Resize flattened/ images so the largest dimension is MAX_SIZE, preserving aspect ratio, into resized/."""
 
-import shutil
 from pathlib import Path
 
-from PIL import Image
+from PIL import Image, ImageOps
 from tqdm import tqdm
 
 FLATTENED_DIR = Path("flattened")
@@ -12,14 +11,19 @@ MAX_SIZE = 1280
 
 
 def resize_image(src: Path, dst: Path) -> bool:
-    """Resize src into dst if its largest dimension exceeds MAX_SIZE, else copy unchanged.
+    """Resize src into dst if its largest dimension exceeds MAX_SIZE, else save unchanged.
 
-    Returns True if the image was resized, False if it was just copied.
+    Applies EXIF orientation before measuring/resizing, since PIL's resize ignores
+    it and would otherwise bake the wrong rotation into pixels that lose their EXIF tag.
+
+    Returns True if the image was resized, False if it was just re-saved as-is.
     """
     with Image.open(src) as img:
+        img = ImageOps.exif_transpose(img)
+
         width, height = img.size
         if max(width, height) <= MAX_SIZE:
-            shutil.copy2(src, dst)
+            img.save(dst)
             return False
 
         if width >= height:
