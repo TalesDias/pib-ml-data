@@ -1,0 +1,14 @@
+stages: 
+  transpose:
+    cmd: python flatten.py
+    deps:
+      - raw
+    outs:
+      - flattened
+
+  resize:
+    cmd: python resize.py
+    deps:
+      - flattened
+    outs:
+      - resized

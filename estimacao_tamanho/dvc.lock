@@ -1,0 +1,30 @@
+schema: '2.0'
+stages:
+  transpose:
+    cmd: python flatten.py
+    deps:
+    - path: raw
+      hash: md5
+      md5: 97b3875b04a85954b265f7e827b5ad22.dir
+      size: 873173975
+      nfiles: 433
+    outs:
+    - path: flattened
+      hash: md5
+      md5: 0b57c5564b0cf420f31029d825c46c83.dir
+      size: 847372208
+      nfiles: 430
+  resize:
+    cmd: python resize.py
+    deps:
+    - path: flattened
+      hash: md5
+      md5: 0b57c5564b0cf420f31029d825c46c83.dir
+      size: 847372208
+      nfiles: 430
+    outs:
+    - path: resized
+      hash: md5
+      md5: 594c02d66807a7958b449056e3450927.dir
+      size: 38510548
+      nfiles: 430
