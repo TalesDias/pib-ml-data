@@ -1,10 +1,12 @@
-"""Verify that penis_segmentation_masks/ has a .png mask for every image in resized/."""
+"""Verify that penis_segmentation_masks/ has a .png mask for every image in resized/, then copy the masks into penis_segmentation_masks_verified/."""
 
+import shutil
 import sys
 from pathlib import Path
 
 RESIZED_DIR = Path("resized")
 LABELS_DIR = Path("penis_segmentation_masks")
+VERIFIED_DIR = Path("penis_segmentation_masks_verified")
 
 
 def main() -> None:
@@ -16,23 +18,28 @@ def main() -> None:
     missing_labels = sorted(images - labels)
     extra_labels = sorted(labels - images)
 
-    if not missing_labels and not extra_labels:
-        print(f"OK. {len(images)} images and {len(labels)} labels match.")
-        return
+    if missing_labels or extra_labels:
+        print(f"Mismatch: {len(images)} images in '{RESIZED_DIR}/', {len(labels)} labels in '{LABELS_DIR}/'.")
 
-    print(f"Mismatch: {len(images)} images in '{RESIZED_DIR}/', {len(labels)} labels in '{LABELS_DIR}/'.")
+        if missing_labels:
+            print(f"{len(missing_labels)} missing label(s), showing first 5:")
+            for stem in missing_labels[:5]:
+                print(f"  {stem}.jpg")
 
-    if missing_labels:
-        print(f"{len(missing_labels)} missing label(s), showing first 5:")
-        for stem in missing_labels[:5]:
-            print(f"  {stem}.jpg")
+        if extra_labels:
+            print(f"{len(extra_labels)} extra label(s) with no matching image, showing first 5:")
+            for stem in extra_labels[:5]:
+                print(f"  {stem}.png")
 
-    if extra_labels:
-        print(f"{len(extra_labels)} extra label(s) with no matching image, showing first 5:")
-        for stem in extra_labels[:5]:
-            print(f"  {stem}.png")
+        sys.exit(1)
 
-    sys.exit(1)
+    print(f"OK. {len(images)} images and {len(labels)} labels match.")
+
+    if VERIFIED_DIR.exists():
+        shutil.rmtree(VERIFIED_DIR)
+    shutil.copytree(LABELS_DIR, VERIFIED_DIR)
+    print(f"Copied verified labels to '{VERIFIED_DIR}/'")
+
 
 if __name__ == "__main__":
     main()

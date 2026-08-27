@@ -5,8 +5,8 @@ stages:
     deps:
     - path: flatten.py
       hash: md5
-      md5: 27e7c7e02342f79b64ae3eef9cb9280a
-      size: 1688
+      md5: 1e89975f93c41cade74bb1c81e8a944f
+      size: 1928
     - path: raw
       hash: md5
       md5: 3c0d2ea00b987a3a859064b6fad7407a.dir
@@ -15,16 +15,16 @@ stages:
     outs:
     - path: flattened
       hash: md5
-      md5: 4a6101e05a230d9dbe8f128bf9e03cd1.dir
-      size: 841713158
+      md5: 8b4f1ca5d49874c83bc087346a674a61.dir
+      size: 294564748
       nfiles: 428
   resize:
     cmd: python resize.py
     deps:
     - path: flattened
       hash: md5
-      md5: 4a6101e05a230d9dbe8f128bf9e03cd1.dir
-      size: 841713158
+      md5: 8b4f1ca5d49874c83bc087346a674a61.dir
+      size: 294564748
       nfiles: 428
     - path: resize.py
       hash: md5
@@ -33,23 +33,32 @@ stages:
     outs:
     - path: resized
       hash: md5
-      md5: 9af59056923090672fa9ff4fe06ddcd0.dir
-      size: 38381832
+      md5: 80a7a4ee484312ebfdba3ef7f024929e.dir
+      size: 38935195
       nfiles: 428
   check_card_labels:
     cmd: python verify_cvat_pose_labels.py
     deps:
-    - path: resized
-      hash: md5
-      md5: 594c02d66807a7958b449056e3450927.dir
-      size: 38510548
-      nfiles: 430
-    outs:
     - path: card_pose_labels
       hash: md5
-      md5: d751713988987e9331980363e24189ce.dir
-      size: 0
-      nfiles: 0
+      md5: bda0a22852f82b40f305ba442dfe73f3.dir
+      size: 50504
+      nfiles: 428
+    - path: resized
+      hash: md5
+      md5: 80a7a4ee484312ebfdba3ef7f024929e.dir
+      size: 38935195
+      nfiles: 428
+    - path: verify_cvat_pose_labels.py
+      hash: md5
+      md5: 0b0c2f74fdc78ddc997df765ca6dd5cb
+      size: 1461
+    outs:
+    - path: card_pose_labels_verified
+      hash: md5
+      md5: bda0a22852f82b40f305ba442dfe73f3.dir
+      size: 50504
+      nfiles: 428
   check_segmentation_labels:
     cmd: python verify_sam_mask_labels.py
     deps:

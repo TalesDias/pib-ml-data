@@ -20,13 +20,15 @@ stages:
     deps:
       - verify_cvat_pose_labels.py
       - resized
-    outs:
       - card_pose_labels
+    outs:
+      - card_pose_labels_verified
 
   check_segmentation_labels:
     cmd: python verify_sam_mask_labels.py
     deps:
       - verify_sam_mask_labels.py
       - resized
-    outs:
       - penis_segmentation_masks
+    outs:
+      - penis_segmentation_masks_verified
