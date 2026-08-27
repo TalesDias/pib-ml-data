@@ -1,10 +1,9 @@
 """Flatten raw/V0 and raw/V1 datasets into a single flatten/ folder with normalized names."""
 
 import re
-import shutil
 from pathlib import Path
 
-from PIL import Image
+from PIL import Image, ImageOps
 from tqdm import tqdm
 
 RAW_DIR = Path("raw")
@@ -14,11 +13,15 @@ V1_NAME_RE = re.compile(r"(M\d+).*?(foto[12])", re.IGNORECASE)
 
 
 def save_as_jpg(src: Path, dst: Path) -> None:
-    if src.suffix.lower() == ".jpg":
-        shutil.copy2(src, dst)
-    else:
-        with Image.open(src) as img:
-            img.convert("RGB").save(dst, "JPEG")
+    """Save src as dst, applying any EXIF orientation to the pixels and dropping EXIF.
+
+    A plain byte copy would keep the EXIF orientation tag, which later steps
+    (e.g. resize) don't all respect the same way, leading to inconsistently
+    rotated output down the pipeline.
+    """
+    with Image.open(src) as img:
+        img = ImageOps.exif_transpose(img)
+        img.convert("RGB").save(dst, "JPEG")
 
 
 def flatten_v0(src_dir: Path) -> None:
