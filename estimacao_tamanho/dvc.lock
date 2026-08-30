@@ -62,14 +62,23 @@ stages:
   check_segmentation_labels:
     cmd: python verify_sam_mask_labels.py
     deps:
-    - path: resized
-      hash: md5
-      md5: 594c02d66807a7958b449056e3450927.dir
-      size: 38510548
-      nfiles: 430
-    outs:
     - path: penis_segmentation_masks
       hash: md5
-      md5: d751713988987e9331980363e24189ce.dir
-      size: 0
-      nfiles: 0
+      md5: 0716c24a624d68fc5096069cc9526da1.dir
+      size: 848235
+      nfiles: 745
+    - path: resized
+      hash: md5
+      md5: 80a7a4ee484312ebfdba3ef7f024929e.dir
+      size: 38935195
+      nfiles: 428
+    - path: verify_sam_mask_labels.py
+      hash: md5
+      md5: bfd870be7aa3a40531529d63d39768f9
+      size: 2035
+    outs:
+    - path: penis_segmentation_masks_verified
+      hash: md5
+      md5: df8746e0f9555939cf231a3aaa36cb3c.dir
+      size: 832388
+      nfiles: 317

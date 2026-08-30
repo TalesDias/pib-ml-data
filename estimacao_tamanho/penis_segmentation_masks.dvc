@@ -1,6 +1,5 @@
 outs:
-- md5: d751713988987e9331980363e24189ce.dir
-  size: 0
-  nfiles: 0
+- md5: 0716c24a624d68fc5096069cc9526da1.dir
+  nfiles: 745
   hash: md5
   path: penis_segmentation_masks
