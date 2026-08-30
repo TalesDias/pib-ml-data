@@ -1,0 +1,6 @@
+outs:
+- md5: bda0a22852f82b40f305ba442dfe73f3.dir
+  size: 50504
+  nfiles: 428
+  hash: md5
+  path: card_pose_labels
