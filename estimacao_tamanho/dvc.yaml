@@ -40,6 +40,16 @@ stages:
       - resized
       - card_pose_labels_verified
       - penis_segmentation_masks_verified
-      - metadata.csv
     outs:
       - labeled
+
+  build_datasets:
+    cmd: python build_datasets.py
+    deps:
+      - build_datasets.py
+      - labeled
+      - metadata.csv
+    outs:
+      - card_pose_dataset
+      - penis_segmentation_dataset
+      - cleaned

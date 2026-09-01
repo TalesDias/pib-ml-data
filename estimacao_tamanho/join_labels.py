@@ -6,13 +6,11 @@ from pathlib import Path
 RESIZED_DIR = Path("resized")
 CARD_POSES_DIR = Path("card_pose_labels_verified")
 PENIS_MASKS_DIR = Path("penis_segmentation_masks_verified")
-METADATA_FILE = Path("metadata.csv")
 
 LABELED_DIR = Path("labeled")
 IMAGES_OUT = LABELED_DIR / "images"
 CARD_POSES_OUT = LABELED_DIR / "card_poses"
 PENIS_MASKS_OUT = LABELED_DIR / "penis_masks"
-METADATA_FILE_OUT = LABELED_DIR / "metadata.csv"
 
 
 def copy_dir(src: Path, dst: Path) -> int:
@@ -24,9 +22,6 @@ def copy_dir(src: Path, dst: Path) -> int:
 
 def main() -> None:
     LABELED_DIR.mkdir(exist_ok=True)
-
-    shutil.copy(METADATA_FILE, METADATA_FILE_OUT)
-    print(f"Copied metadata.csv to '{METADATA_FILE_OUT}'")
 
     n_images = copy_dir(RESIZED_DIR, IMAGES_OUT)
     print(f"Copied {n_images} image(s) to '{IMAGES_OUT}/'")

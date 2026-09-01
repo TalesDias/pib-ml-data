@@ -92,12 +92,8 @@ stages:
       nfiles: 428
     - path: join_labels.py
       hash: md5
-      md5: b77fcd71b9ce58874eec04678b8715b0
-      size: 1328
-    - path: metadata.csv
-      hash: md5
-      md5: 9b8ce7c371d075479c3e974c324dae65
-      size: 50598
+      md5: b623ea5f2fccd279360993dc34f1fa6f
+      size: 1132
     - path: penis_segmentation_masks_verified
       hash: md5
       md5: df8746e0f9555939cf231a3aaa36cb3c.dir
@@ -111,6 +107,38 @@ stages:
     outs:
     - path: labeled
       hash: md5
-      md5: fb07493befa50c66e5aa7daac06e33b4.dir
-      size: 39868685
-      nfiles: 1174
+      md5: 7b4d6ab09072bdfe96a60e2fc9508754.dir
+      size: 39818087
+      nfiles: 1173
+  build_datasets:
+    cmd: python build_datasets.py
+    deps:
+    - path: build_datasets.py
+      hash: md5
+      md5: 1b018e96c7f2a85f07e1d514da0d2925
+      size: 2921
+    - path: labeled
+      hash: md5
+      md5: 7b4d6ab09072bdfe96a60e2fc9508754.dir
+      size: 39818087
+      nfiles: 1173
+    - path: metadata.csv
+      hash: md5
+      md5: 9b8ce7c371d075479c3e974c324dae65
+      size: 50598
+    outs:
+    - path: card_pose_dataset
+      hash: md5
+      md5: 5d8d0032046e3feb827cbb6eb9568e4e.dir
+      size: 38635286
+      nfiles: 850
+    - path: cleaned
+      hash: md5
+      md5: f39381acd501a741556659c26a54c1a8.dir
+      size: 21035368
+      nfiles: 658
+    - path: penis_segmentation_dataset
+      hash: md5
+      md5: 9552c18e645a93e30246c8018b54080a.dir
+      size: 26125301
+      nfiles: 548
