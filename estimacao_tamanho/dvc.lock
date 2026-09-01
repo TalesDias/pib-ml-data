@@ -82,3 +82,35 @@ stages:
       md5: df8746e0f9555939cf231a3aaa36cb3c.dir
       size: 832388
       nfiles: 317
+  join_labels:
+    cmd: python join_labels.py
+    deps:
+    - path: card_pose_labels_verified
+      hash: md5
+      md5: bda0a22852f82b40f305ba442dfe73f3.dir
+      size: 50504
+      nfiles: 428
+    - path: join_labels.py
+      hash: md5
+      md5: b77fcd71b9ce58874eec04678b8715b0
+      size: 1328
+    - path: metadata.csv
+      hash: md5
+      md5: 9b8ce7c371d075479c3e974c324dae65
+      size: 50598
+    - path: penis_segmentation_masks_verified
+      hash: md5
+      md5: df8746e0f9555939cf231a3aaa36cb3c.dir
+      size: 832388
+      nfiles: 317
+    - path: resized
+      hash: md5
+      md5: 80a7a4ee484312ebfdba3ef7f024929e.dir
+      size: 38935195
+      nfiles: 428
+    outs:
+    - path: labeled
+      hash: md5
+      md5: fb07493befa50c66e5aa7daac06e33b4.dir
+      size: 39868685
+      nfiles: 1174

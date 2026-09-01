@@ -32,3 +32,14 @@ stages:
       - penis_segmentation_masks
     outs:
       - penis_segmentation_masks_verified
+
+  join_labels:
+    cmd: python join_labels.py
+    deps:
+      - join_labels.py
+      - resized
+      - card_pose_labels_verified
+      - penis_segmentation_masks_verified
+      - metadata.csv
+    outs:
+      - labeled
