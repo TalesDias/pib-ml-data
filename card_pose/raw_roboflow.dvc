@@ -1,0 +1,6 @@
+outs:
+- md5: 63efd69952c01b44bcb0b5efde4d75e9.dir
+  size: 282448647
+  nfiles: 4347
+  hash: md5
+  path: raw_roboflow

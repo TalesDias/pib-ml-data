@@ -1,0 +1,16 @@
+stages:
+  prepare_models:
+    cmd: python prepare_models.py
+    deps:
+      - prepare_models.py
+      - ../estimacao_tamanho/card_pose_dataset
+    outs:
+      - models
+
+  flatten_roboflow:
+    cmd: python flatten_roboflow.py
+    deps:
+      - flatten_roboflow.py
+      - raw_roboflow
+    outs:
+      - roboflow

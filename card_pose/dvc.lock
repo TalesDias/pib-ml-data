@@ -1,0 +1,38 @@
+schema: '2.0'
+stages:
+  prepare_models:
+    cmd: python prepare_models.py
+    deps:
+    - path: ../estimacao_tamanho/card_pose_dataset
+      hash: md5
+      md5: 5d8d0032046e3feb827cbb6eb9568e4e.dir
+      size: 38635286
+      nfiles: 850
+    - path: prepare_models.py
+      hash: md5
+      md5: aa75a8443a79492581e62ba2e1950b1a
+      size: 752
+    outs:
+    - path: models
+      hash: md5
+      md5: 5d8d0032046e3feb827cbb6eb9568e4e.dir
+      size: 38635286
+      nfiles: 850
+  flatten_roboflow:
+    cmd: python flatten_roboflow.py
+    deps:
+    - path: flatten_roboflow.py
+      hash: md5
+      md5: 40aa95068d3150d14b557c7ef6b7745e
+      size: 1079
+    - path: raw_roboflow
+      hash: md5
+      md5: 63efd69952c01b44bcb0b5efde4d75e9.dir
+      size: 282448647
+      nfiles: 4347
+    outs:
+    - path: roboflow
+      hash: md5
+      md5: f9a0cd0e9410f56d037333a96fef07b3.dir
+      size: 282447164
+      nfiles: 4344
