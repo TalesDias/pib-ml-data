@@ -1,10 +1,19 @@
 # pib-ml-data
 
-DVC pipeline that prepares image datasets for card-pose estimation and penis
-segmentation models. The pipeline lives in `process_models/` and every
-stage runs with that directory as the working directory.
+DVC pipelines that prepare image datasets for card-pose estimation and penis
+segmentation models. Three pipelines, each its own working
+directory and `dvc.yaml`, each run via `dvc repro`:
 
-## Pipeline (dvc.yaml, run top to bottom via `dvc repro`)
+- `process_models/` — turns raw captures into labeled, filtered datasets.
+- `card_pose/` — assembles card-pose training sources.
+- `penis_segmentation/` — assembles segmentation training sources.
+
+`card_pose/` and `penis_segmentation/` depend directly on `process_models/`
+outputs (as cross-directory `deps:` in their `dvc.yaml`), so running
+`dvc repro` from either one also reproduces any stale `process_models/`
+stages automatically — no need to `cd` there separately.
+
+## process_models/ (dvc.yaml, run top to bottom via `dvc repro`)
 
 1. `flatten.py`: `raw/` → `flattened/` (flatten nested capture folders).
 2. `resize.py`: `flattened/` → `resized/`.
@@ -21,14 +30,35 @@ stage runs with that directory as the working directory.
    - `cleaned/{images,labels,masks}/` + `cleaned/metadata.csv` — rows with
      `Pipeline_suitable=Include` (final, model-ready dataset)
 
-## Key files
+### Key files
 
 - `metadata.csv` — one row per sample, keyed by `Id` (matches file stems
   everywhere). Columns of note: `Pose_training`, `Seg_training`,
   `Pipeline_suitable` (each `Include`/`Exclude`), plus measurement fields.
   Parse with `csv.DictReader`/`DictWriter` — `Notes` has embedded commas.
-- `dvc.yaml` / `dvc.lock` — stage definitions and pinned hashes.
-- `.gitignore` — every generated directory is DVC-tracked, not git-tracked.
+
+## card_pose/ (dvc.yaml)
+
+Assembles two independent, split-agnostic image sources so a downstream
+training repo can decide train/val/test and which source(s) to use — and
+when to fine-tune against them — on its own:
+
+1. `prepare_models.py`: copies `../process_models/card_pose_dataset/` →
+   `models/{images,labels}`.
+2. `flatten_roboflow.py`: merges `raw_roboflow/{train,valid,test}/` (a raw
+   Roboflow export) into flat `roboflow/{images,labels}`, dropping the split
+   boundaries, READMEs, and `data.yaml`.
+
+`raw_roboflow/` (raw download) and `testing/` (showcase videos) are static
+inputs, not generated — tracked individually with `dvc add`
+(`raw_roboflow.dvc`, `testing.dvc`), not wired into `dvc.yaml`.
+
+## penis_segmentation/ (dvc.yaml)
+
+Similar objective as `card_pose/`, but with only one source
+
+1. `prepare_models.py`: copies
+   `../process_models/penis_segmentation_dataset/` → `models/{images,masks}`.
 
 ## Conventions
 
@@ -37,3 +67,5 @@ stage runs with that directory as the working directory.
   idempotent.
 - Every stage lists its own script as a `deps:` entry in `dvc.yaml`, so
   editing a script forces re-execution.
+- Every generated directory is git-ignored (DVC-tracked instead) via a
+  `.gitignore` per pipeline directory.
