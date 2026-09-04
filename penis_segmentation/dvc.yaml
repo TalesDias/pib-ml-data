@@ -1,0 +1,8 @@
+stages:
+  prepare_models:
+    cmd: python prepare_models.py
+    deps:
+      - prepare_models.py
+      - ../estimacao_tamanho/penis_segmentation_dataset
+    outs:
+      - models
