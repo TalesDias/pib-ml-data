@@ -1,9 +1,9 @@
-"""Copy estimacao_tamanho/penis_segmentation_dataset into penis_segmentation/models/."""
+"""Copy process_models/penis_segmentation_dataset into penis_segmentation/models/."""
 
 import shutil
 from pathlib import Path
 
-SRC_DIR = Path("../estimacao_tamanho/penis_segmentation_dataset")
+SRC_DIR = Path("../process_models/penis_segmentation_dataset")
 DST_DIR = Path("models")
 
 

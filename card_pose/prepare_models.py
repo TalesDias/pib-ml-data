@@ -1,9 +1,9 @@
-"""Copy estimacao_tamanho/card_pose_dataset into card_pose/models/."""
+"""Copy process_models/card_pose_dataset into card_pose/models/."""
 
 import shutil
 from pathlib import Path
 
-SRC_DIR = Path("../estimacao_tamanho/card_pose_dataset")
+SRC_DIR = Path("../process_models/card_pose_dataset")
 DST_DIR = Path("models")
 
 

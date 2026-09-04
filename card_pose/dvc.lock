@@ -3,15 +3,15 @@ stages:
   prepare_models:
     cmd: python prepare_models.py
     deps:
-    - path: ../estimacao_tamanho/card_pose_dataset
+    - path: ../process_models/card_pose_dataset
       hash: md5
       md5: 5d8d0032046e3feb827cbb6eb9568e4e.dir
       size: 38635286
       nfiles: 850
     - path: prepare_models.py
       hash: md5
-      md5: aa75a8443a79492581e62ba2e1950b1a
-      size: 752
+      md5: 55145094364ebed998ea8c12976f3e55
+      size: 746
     outs:
     - path: models
       hash: md5

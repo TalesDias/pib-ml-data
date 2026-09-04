@@ -1,7 +1,7 @@
 # pib-ml-data
 
 DVC pipeline that prepares image datasets for card-pose estimation and penis
-segmentation models. The pipeline lives in `estimacao_tamanho/` and every
+segmentation models. The pipeline lives in `process_models/` and every
 stage runs with that directory as the working directory.
 
 ## Pipeline (dvc.yaml, run top to bottom via `dvc repro`)

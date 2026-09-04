@@ -3,7 +3,7 @@ stages:
     cmd: python prepare_models.py
     deps:
       - prepare_models.py
-      - ../estimacao_tamanho/card_pose_dataset
+      - ../process_models/card_pose_dataset
     outs:
       - models
 

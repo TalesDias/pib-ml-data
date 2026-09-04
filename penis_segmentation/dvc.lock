@@ -3,15 +3,15 @@ stages:
   prepare_models:
     cmd: python prepare_models.py
     deps:
-    - path: ../estimacao_tamanho/penis_segmentation_dataset
+    - path: ../process_models/penis_segmentation_dataset
       hash: md5
       md5: 9552c18e645a93e30246c8018b54080a.dir
       size: 26125301
       nfiles: 548
     - path: prepare_models.py
       hash: md5
-      md5: 5054a4696ee3efac055cd14692fce9f2
-      size: 775
+      md5: d4e86bb49dc5da2a1f616423714ff479
+      size: 769
     outs:
     - path: models
       hash: md5
